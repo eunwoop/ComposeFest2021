@@ -3,6 +3,7 @@ package com.seacows.app.pill.and.week2app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -19,17 +22,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seacows.app.pill.and.week2app.ui.theme.Week2AppTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Week2AppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    PhotographerCard()
-                }
+                LayoutsCodelab()
             }
         }
+    }
+}
+
+@Composable
+fun LayoutsCodelab() {
+    Scaffold (
+        topBar = {
+            TopAppBar (
+                title = {
+                    Text(text = "LayoutsCodelab",)
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Filled.Favorite, contentDescription = null)
+                    }
+                })
+        }){ innerPadding ->
+        BodyContent(Modifier.padding(innerPadding))
+    }
+}
+
+@Composable
+fun BodyContent(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(8.dp)) {
+        Text(text = "Hi there!")
+        Text(text = "Thanks for going through the Codelab!")
     }
 }
 
@@ -37,7 +63,7 @@ class MainActivity : ComponentActivity() {
 fun PhotographerCard(modifier: Modifier = Modifier) {
     Row(modifier
         .padding(16.dp)
-        .clickable(onClick = {/*TODO CLICK*/})) {
+        .clickable(onClick = {/*TODO CLICK*/ })) {
         Surface(
             modifier = Modifier.size(50.dp),
             shape = CircleShape,
@@ -46,7 +72,8 @@ fun PhotographerCard(modifier: Modifier = Modifier) {
             // IMAGE
         }
         Column(
-            modifier = Modifier.padding(start = 8.dp)
+            modifier = Modifier
+                .padding(start = 8.dp)
                 .align(Alignment.CenterVertically)
         ) {
             Text("Alfred Sisly", fontWeight = FontWeight.Bold)
@@ -57,10 +84,13 @@ fun PhotographerCard(modifier: Modifier = Modifier) {
     }
 }
 
+// PREVIEW
+
 @Preview
 @Composable
 fun PhotographerCardPreview() {
     Week2AppTheme {
-        PhotographerCard()
+        LayoutsCodelab()
     }
 }
+
