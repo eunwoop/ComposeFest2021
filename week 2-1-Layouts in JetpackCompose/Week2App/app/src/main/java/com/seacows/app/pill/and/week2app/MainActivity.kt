@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import coil.compose.rememberImagePainter
 import com.seacows.app.pill.and.week2app.BodyContent
 import com.seacows.app.pill.and.week2app.ui.theme.Week2AppTheme
@@ -140,8 +142,70 @@ fun Chip(modifier: Modifier = Modifier, text: String) {
                     .background(color = MaterialTheme.colors.primary)
             )
             Spacer(Modifier.width(4.dp))
-            Text(text = text)
+            TwoTexts(modifier.width(100.dp), text, "BEST")
         }
+    }
+}
+
+@Composable
+fun DecoupledConstraintLayout() {
+    BoxWithConstraints {
+        val constraints = if (maxWidth < maxHeight) {
+            decoupledConstraints(margin = 16.dp) // Portrait constraints
+        } else {
+            decoupledConstraints(margin = 32.dp) // Landscape constraints
+        }
+
+        ConstraintLayout(constraints) {
+            Button(
+                onClick = { /* Do something */ },
+                modifier = Modifier.layoutId("button")
+            ) {
+                Text("Button")
+            }
+
+            Text("Text", Modifier.layoutId("text"))
+        }
+    }
+}
+
+private fun decoupledConstraints(margin: Dp): androidx.constraintlayout.compose.ConstraintSet {
+    return ConstraintSet {
+        val button = createRefFor("button")
+        val text = createRefFor("text")
+
+        constrain(button) {
+            top.linkTo(parent.top, margin= margin)
+        }
+        constrain(text) {
+            top.linkTo(button.bottom, margin)
+        }
+    }
+}
+
+@Composable
+fun TwoTexts(modifier: Modifier = Modifier, text1: String, text2: String) {
+    // children 들이 미니멈 사이즈의 height를 가지게 함
+    Row(modifier = modifier.height(IntrinsicSize.Min)) {
+        Text(
+            modifier = Modifier
+                .weight(8f)
+                .padding(start = 4.dp)
+                .wrapContentWidth(Alignment.Start)
+                .align(Alignment.CenterVertically),
+            text = text1
+        )
+
+        // divider의 높이를 textview의 높이와 같이 하고싶기때문에
+        Divider(color = Color.Black, modifier = Modifier.fillMaxHeight().width(1.dp))
+        Text(
+            text = text2,
+            modifier = Modifier
+                .weight(2f)
+                .padding(end = 4.dp)
+                .wrapContentWidth(Alignment.End),
+            fontSize = 5.sp
+        )
     }
 }
 
@@ -159,5 +223,15 @@ fun LayoutsCodelabPreview() {
 fun ChipPreview() {
     Week2AppTheme {
         Chip(text = "Hi there")
+    }
+}
+
+@Preview
+@Composable
+fun TwoTextsPreview() {
+    Week2AppTheme {
+        Surface {
+            TwoTexts(text1 = "Hi", text2 = "there")
+        }
     }
 }
