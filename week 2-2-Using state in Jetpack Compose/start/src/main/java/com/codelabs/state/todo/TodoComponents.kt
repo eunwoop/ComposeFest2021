@@ -252,3 +252,7 @@ fun TodoEditButton(
 @Preview
 @Composable
 fun PreviewIconRow() = IconRow(icon = TodoIcon.Square, onIconChange = {})
+
+@Preview
+@Composable
+fun PreviewTodoEditButton() = TodoEditButton(onClick = {}, "Add",Modifier, true )
