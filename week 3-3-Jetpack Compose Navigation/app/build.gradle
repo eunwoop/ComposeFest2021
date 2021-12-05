@@ -107,12 +107,12 @@ dependencies {
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
 
     // Compose testing dependencies
-    androidTestImplementation "androidx.compose.ui:ui-test:$rootProject.composeVersion"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$rootProject.composeVersion"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$rootProject.composeVersion"
+    androidTestImplementation "androidx.compose.ui:ui-test:1.0.5"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.0.5"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.0.5"
 }
